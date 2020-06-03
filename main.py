@@ -19,12 +19,12 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 Mistruth = Base.classes.mistruth
 
-@app.route ('/api/v1.0/trump_mistruths')
+@app.route ('/api/v1.0/trump_untruths')
 
 '''
 return data as json
 '''
-def mistruths():
+def untruths():
     return jsonify(data_points)
 
 @app.route("/")
@@ -32,13 +32,16 @@ def welcome():
     return(
         f'Welcome to our API!<br/>'
         f'Available Routes: <br/>'
-        f'/api/v1.0/trump_mistruths (returns all mistruths)'
-        f'/api/v1.0/trump_mistruths/keyword (returns all mistruths with associated keyword'
-        f'Keywords include: {}{}{}{}{}'
+        f'/api/v1.0/trump_untruths (returns all untruths)'
+        f'/api/v1.0/trump_untruths/keyword (returns all untruths with associated keyword)'
+        f'Keywords include: {}'
     )
 
 @app.route('/api/v1.0/trump_mistruths/<keyword>')
 
+'''
+returns all mistruths containing keyword
+'''
 def find_keyword_mistruths(keyword):
     canonicalized = keyword.lower()
     for word in keywords:
