@@ -13,6 +13,6 @@ CREATE TABLE trump_statements (
 
 COPY trump_statements(claim_index,claim_date,claim_source,claim_text,claim_rating,claim_topic
 claim_response,claim_link, claim_repeat_dates)
-FROM '' DELIMITER ',' CSV HEADER
+FROM '' DELIMITER ',' CSV HEADER;
 	
 

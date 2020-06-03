@@ -32,8 +32,8 @@ def welcome():
     return(
         f'Welcome to our API!<br/>'
         f'Available Routes: <br/>'
-        f'/api/v1.0/trump_untruths (returns all untruths)'
-        f'/api/v1.0/trump_untruths/keyword (returns all untruths with associated keyword)'
+        f'/api/v1.0/trump_untruths (returns all untruths) <br/>'
+        f'/api/v1.0/trump_untruths/keyword returns all untruths with associated keyword) <br/>'
         f'Keywords include: {}'
     )
 
@@ -42,7 +42,7 @@ def welcome():
 '''
 returns all mistruths containing keyword
 '''
-def find_keyword_mistruths(keyword):
+def find_keyword(keyword):
     canonicalized = keyword.lower()
     for word in keywords:
         search_term = word.lower()
