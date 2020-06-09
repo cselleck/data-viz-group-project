@@ -1,18 +1,12 @@
-CREATE TABLE trump_statements (
-	claim_index int NOT NULL
-	claim_date date NOT NULL
-	claim_source varchar NOT NULL
-	claim_text varchar NOT NULL
-	claim_rating varchar NOT NULL
-	claim_topic varchar NOT NULL
-	claim_response varchar NOT NULL
-	claim_link varchar NOT NULL
-	claim_repeat_dates varchar NOT NULL
-	PRIMARY KEY (claim_index)
+CREATE TABLE all_tweets (
+    text varchar
+    created_at varchar
+    retweet_count int
+    favorite_count int
+    is_retweet int
+    id_str varchar NOT NULL
+	PRIMARY KEY (id_str)
 )
 
-COPY trump_statements(claim_index,claim_date,claim_source,claim_text,claim_rating,claim_topic
-claim_response,claim_link, claim_repeat_dates)
-FROM '' DELIMITER ',' CSV HEADER;
-	
-
+COPY all_tweets(text,created_at,retweet_count,favorite_count,is_retweet,id_str)
+FROM 'trumpTweets.csv' DELIMITER ',' CSV HEADER;
