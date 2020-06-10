@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Trump Tweet Cloud Chart</title>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+     <!-- Boostrap Stylesheet -->
+     <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+    
+     <!-- Our own CSS stylesheet -->
+    <link rel="stylesheet" href="css/styles.css" media="screen">
+
+    <<style>  
+      html, body, #container {
+      width: 100%;
+      height: 90%;
+      margin: 0;
+      padding: 0;
+      }
+    </style> 
+   </head>
+
+  <body>
+    <!-- Start of navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid navbar-custom">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="row">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle Navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></spa>
+            </button>
+            <div class="col-xs-9 phone-nav">
+              <a class="navbar-brand" href="index1.html" id="logo">Trump Tweets</a>
+            </div>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right navbar-right-custom">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="bar_chart.html">Lies by Month</a></li>
+                  <li><a href="pie_chart.html">Lies by Category</a></li>
+                  <li><a href="any_chart.html">Lies by Topic</a></li>
+                  <li><a href="bar_chart.html">Lies by Month</a></li>                  
+                </ul>
+              </li>
+              <li><a href="comparison.html">Comparison</a></li>
+              <!--li><a href="data.html">Data</a></li-->
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div>
+      </div><!-- /.container-fluid -->
+    </nav>
+    <!-- End of navbar -->
+
+    <!-- Start of container -->
+    <div id="container">
+      <script>
+        anychart.onDocumentReady(function() {
+            // code to create a word cloud chart will be here
+            anychart.onDocumentReady(function() {
+      var data = [
+        {"x":'our', "value": 2751, category: "2019"},
+        {"x":'prayers', "value": 65, category: "2019"},
+        {"x":'are', "value": 2869, category: "2019"},  
+        {"x":'with', "value": 2768, category: "2019"},  
+        {"x":'the', "value": 1811, category: "2019"},
+        {"x":'families', "value": 122, category: "2019"},
+        {"x":'of', "value": 7222, category: "2019"},
+        {"x":'victims', "value": 47, category: "2019"},
+        {"x":'and', "value": 8686, category: "2019"},
+        {"x":'congregation', "value": 1, category: "2019"},
+        {"x":'yesterday', "value": 65, category: "2019"},
+        {"x":'church', "value": 7, category: "2019"},
+        {"x":'attack', "value": 88, category: "2019"},
+        {"x":'it', "value": 2709, category: "2019"},
+        {"x":'was', "value": 1828, category: "2019"},
+        {"x":'over', "value": 451, category: "2019"},
+        {"x":'in', "value": 5332, category: "2019"},
+        {"x":'seconds', "value": 3, category: "2019"},
+        {"x":'thanks', "value": 99, category: "2019"},
+        {"x":'to', "value": 9395, category: "2019"},
+        {"x":'brave', "value": 65, category: "2019"},
+        {"x":'parishioners', "value": 1, category: "2019"},
+        {"x":'who', "value": 1066, category: "2019"},
+        {"x":'acted', "value": 7, category: "2019"},
+        {"x":'protect', "value": 128, category: "2019"},
+        {"x":'fellow', "value": 16, category: "2019"},
+        {"x":'worshippers', "value": 1, category: "2019"},
+        {"x":'lives', "value": 95, category: "2019"},
+        {"x":'were', "value": 469, category: "2019"},
+        {"x":'saved', "value": 32, category: "2019"},
+        {"x":'by', "value": 1406, category: "2019"},
+        {"x":'these', "value": 274, category: "2019"},
+        {"x":'heroes', "value": 62, category: "2019"},
+        {"x":'texas', "value": 119, category: "2019"},
+        {"x":'jobs', "value": 439, category: "2019"},
+        {"x":'russia', "value": 355, category: "2019"},
+        {"x":'keepamericagreat', "value": 409, category: "2019"},
+        {"x":'laws', "value": 116, category: "2019"},
+        {"x":'allowing', "value": 27, category: "2019"},
+        {"x":'them', "value": 464, category: "2019"},
+        {"x":'carry', "value": 6, category: "2019"},
+        {"x":'arms', "value": 16, category: "2017"},
+        {"x":'realdonaldtrump', "value": 1052, category: "2019"},
+        {"x":'them', "value": 464, category: "2019"},
+        {"x":'this', "value": 1991, category: "2019"},
+        {"x":'impeach', "value": 94, category: "2019"},
+        {"x":'christmas', "value": 36, category: "2019"},
+        {"x":'let', "value": 223, category: "2019"},
+        {"x":'your', "value": 558, category: "2019"},
+        {"x":'life', "value": 119, category: "2019"},
+        {"x":'know', "value": 326, category: "2019"},
+        {"x":'we', "value": 2522, category: "2019"},
+        {"x":'at', "value": 1695, category: "2019"},
+        {"x":'not', "value": 1524, category: "2019"},
+        {"x":'them', "value": 464, category: "2019"},
+        {"x":'he', "value": 1575, category: "2019"},
+        {"x":'isfakenews', "value": 6928, category: "2019"},
+        {"x":'sogood', "value": 5179, category: "2019"},
+        {"x":'is', "value": 5179, category: "2019"},
+        {"x":'thankyou', "value": 3060, category: "2019"},
+        {"x":'melania', "value": 95, category: "2019"},
+        {"x":'obamaadministration', "value": 706, category: "2019"},
+        {"x":'foxandfriends', "value": 280, category: "2019"},
+        {"x":'will', "value": 2692, category: "2019"},
+        {"x":'should', "value": 623, category: "2019"},
+        {"x":'always', "value": 214, category: "2019"},
+        {"x":'be', "value": 2529, category: "2019"},
+        {"x":'nancypelosi', "value": 454, category: "2019"},
+        {"x":'highlyrespected', "value": 182, category: "2019"},
+        {"x":'dishonest', "value": 89, category: "2019"},
+        {"x":'badratings', "value": 107, category: "2019"},
+        {"x":'jewishleader', "value": 87, category: "2019"},
+        {"x":'wonderful', "value": 188, category: "2019"},
+        {"x":'statements', "value": 39, category: "2019"},
+        {"x": "sinceelected", "value": 297, category: "2012"},
+        {"x": "aboutme", "value": 1500, category: "2012"},
+        {"x": "horific", "value": 14, category: "2012"},
+        {"x": "newyork", "value": 966, category: "2012"},
+        {"x": "allcometogether", "value": 1991, category: "2012"},
+        {"x": "joe", "value": 131, category: "2012"},
+        {"x": "joe", "value": 131, category: "2012"},
+        {"x": "last", "value": 321, category: "2012"},
+        {"x": "fight", "value": 132, category: "2012"},
+        {"x": "openborders", "value": 303, category: "2012"},
+        {"x": "eradicateevil", "value": 24, category: "2012"},
+        {"x": "fight", "value": 132, category: "2012"},
+        {"x": "fullrecovery", "value": 205, category: "2012"},
+        {"x": "crazy", "value": 114, category: "2012"},
+        {"x": "spendmoretime", "value": 1609, category: "2012"},
+        {"x": "hoax", "value": 153, category: "2012"},
+        {"x": "california", "value": 108, category: "2012"},
+        {"x": "tremendous", "value": 140, category: "2012"},
+        {"x": "fight", "value": 132, category: "2012"},
+        {"x": "illegal", "value": 235, category: "2012"},
+        {"x": "media", "value": 591, category: "2012"},
+        {"x": "refuse", "value": 25, category: "2012"},    
+        {"x": "democracy", "value": 24, category: "2012"},
+        {"x": "takingcare", "value": 223, category: "2012"},    
+        {"x": "fix", "value": 78, category: "2012"},
+        {"x": "living", "value": 18, category: "2012"},
+        {"x": "chinese", "value": 109, category: "2012"},
+        {"x": "fake news", "value": 980, category: "2014"},
+        {"x": "Obamagate", "value": 544, category: "2016"},
+        {"x": "Hydroxychloroquine", "value": 527, category: "2019"},
+        {"x": "coronavirus", "value": 422, category: "2018"},
+        {"x": "Ask China", "value": 2810, category: "2015"},
+        {"x": "Disappear", "value": 267, category: ""},
+        {"x": "Believe me", "value": 261, category: ""},
+        {"x": "Stimulus check", "value": 229, category: ""},
+        {"x": "Testing", "value": 22, category: ""},
+        {"x": "Trace", "value": 150, category: ""},
+        {"x": "Surveillance", "value": 148, category: ""},
+    
+      ];
+    
+     // create a tag (word) cloud chart
+      var chart = anychart.tagCloud(data);
+    
+       // set a chart title
+      chart.title('Frequent words in Trump Tweets')
+      // set an array of angles at which the words will be laid out
+      chart.angles([0])
+      // set the color range length
+      chart.colorRange().length('80%');
+    
+      // display the word cloud chart
+      chart.container("container");
+      chart.draw();
+    
+      // format the tooltips
+    var formatter = "{%value}{scale:(1)(1000)(1000)|(times)}";
+    var tooltip = chart.tooltip();
+    tooltip.format(formatter);
+    chart.angles([0, -45, 90])
+    
+    // add an event listener
+    chart.listen("pointClick", function(e){
+      var url = "https://www.washingtonpost.com/graphics/politics/trump-claims-database/" + e.point.get("x");
+      window.open(url, "_blank");
+    });
+    });
+        });
+        </script>
+    </div>
+    <!-- End of container -->
+
+    <!-- Start of footer -->
+    <footer class="footer navbar-fixed-bottom">
+      <div class="two-toned-footer-color"></div>
+      <p class="text-muted text-muted-footer text-center">
+        &copy; Copyright Clay, Don, Mac & Matt, LLC.
+      </p>
+    </footer>
+    <!-- End of footer -->
+
+    <!-- jQuery CDN -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <!-- Bootstrap CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </body>
+
+</html>
