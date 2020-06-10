@@ -60,12 +60,12 @@
       <section class="row">
         <div class="col-md-8">
           <article class="description-content">
-            <h1 class="description-header">Trump Tweets by Category</h1>
-            <hr class="description-hr">
-            <img src="images/pie_chart.png" alt="" class="img-responsive"/> 
-            <p>This chart displays the count of tweets by category.</p>
-            <p>Click on the dropdown menu to change the month for each false tweet.</p>
-          </article>
+            <h1 class="description-header">When Does President Trump use Twitter??</h1>
+            <hr class="description-hr" />
+            <div id="wrapper" class="wrapper">
+            </div>// src = flask app format
+            <p>This chart is a visualization for understanding President Trump's usage of Twitter.</p>
+         </article>
         </div>
 
         <div class="col-md-4"> 
@@ -103,6 +103,9 @@
 
     <!-- Bootstrap CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="d3.v5.js"></script>
+    <script src="./js/d3-timer.v1.min.js"></script>
+    <script src="./js/chart.js"></script>  
   </body>
 
 </html>
