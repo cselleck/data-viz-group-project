@@ -63,6 +63,7 @@ d3.csv("claimsmonth.csv", function(error, data) {
   x.domain(data.map(function(d) { return d.date; }));
   y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
+  // Transformation of the bar chart
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
@@ -99,7 +100,7 @@ d3.csv("claimsmonth.csv", function(error, data) {
     .attr('x', 400)
     .attr('y', 550)
     .attr('text-anchor', 'middle')
-    .text('Month')
+    .text('Month/Year')
 
    svg.selectAll("bar")
       .data(data)
