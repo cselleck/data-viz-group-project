@@ -9,9 +9,18 @@
     <title>Trump Tweets Dashboard</title>
 
      <!-- Boostrap Stylesheet -->
-     <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+     <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen">
     <!-- Our own CSS stylesheet -->
-    <link rel="stylesheet" href="css/styles.css" media="screen">
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+<!-- 
+    <style>  
+      html, body, #container {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      }
+    </style>  -->
 
   </head>
 
@@ -27,10 +36,10 @@
               <span class="sr-only">Toggle Navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
-              <!span class="icon-bar"></span>
+              <!--span class="icon-bar"></span-->
             </button>
             <div class="col-xs-9 phone-nav">
-              <a class="navbar-brand" href="index.html" id="logo">Trump Tweets</a>
+              <a class="navbar-brand" href="/index.html" id="logo">Trump Tweets</a>
             </div>
           </div>
 
@@ -40,14 +49,14 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="bar_chart.html">Lies by Month</a></li>
-                  <li><a href="pie_chart.html">Lies by Category</a></li>
-                  <li><a href="any_chart.html">Lies by Topic</a></li>
-                  <li><a href="bar_chart.html">Lies by Month</a></li>                  
-                </ul>
+                  <li><a href="/bar_chart.html">Tweets by Month</a></li>
+                  <li><a href="/pie_chart.html">Tweets by Time</a></li>
+                  <li><a href="/any_chart.html">Tweets by Topic</a></li>
+                  <!--li><a href="bar_chart.html">Lies by Month</a></li-->                 
+                </ul>               
               </li>
-              <li><a href="comparison.html">Comparison</a></li>
-              <li><a href="data.html">Data</a></li>
+              <li><a href="/comparison.html">Comparison</a></li>
+              <!--li><a href="data.html">Data</a></li-->
             </ul>
           </div><!-- /.navbar-collapse -->
         </div>
@@ -58,33 +67,13 @@
     <!-- Start of container -->
     <div class="container">
       <section class="row">
-        <div class="col-md-8">
           <article class="description-content">
             <h1 class="description-header">When Does President Trump use Twitter??</h1>
             <hr class="description-hr" />
             <div id="wrapper" class="wrapper">
             </div>// src = flask app format
             <p>This chart is a visualization for understanding President Trump's usage of Twitter.</p>
-         </article>
-        </div>
-
-        <div class="col-md-4"> 
-          <!-- Start of Visualizations imageNav Area -->
-          <section id="imageNav-area">
-            <div class="imageNav-content">
-              <h2 class="imageNav-header">Visualizations</h2>
-              <hr />
-              <div id="images">
-                <a href="bar_chart.html"><img src="images/bar_chart.png" alt="Lies by Month - Filtered by Topic" class="imageNav-photo"></a>
-                <a href="pie_chart.html"><img src="images/pie_chart.png" alt="Lies by Category - Filtered by Month" class="imageNav-photo"></a>
-                <a href="any_chart.html"><img src="images/any_chart.png" alt="Lies by Topic - Filtered by Month" class="imageNav-photo"></a>
-                <a href="data.html"><img src="images/bar_chart.png" alt="Lies by Month" class="imageNav-photo"></a>             
-            </div>
-            </div>
-          </section>
-          <!-- End of the Visualizations imageNav Area -->
-        </div>
-
+          </article>
       </section>
     </div>
     <!-- End of container -->
@@ -93,7 +82,7 @@
     <footer class="footer navbar-fixed-bottom">
       <div class="two-toned-footer-color"></div>
       <p class="text-muted text-muted-footer text-center">
-        &copy; Copyright Coding Bootcamp 2017
+        &copy; Visuals by Clay, Don, Mac & Matt
       </p>
     </footer>
     <!-- End of footer -->
@@ -103,9 +92,9 @@
 
     <!-- Bootstrap CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="d3.v5.js"></script>
-    <script src="./js/d3-timer.v1.min.js"></script>
-    <script src="./js/chart.js"></script>  
+    <script src="/d3.v5.js"></script>
+    <script src="/js/d3-timer.v1.min.js"></script>
+    <script src="/js/chart.js"></script>  
   </body>
 
 </html>

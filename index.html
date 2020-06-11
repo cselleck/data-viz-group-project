@@ -9,11 +9,12 @@
     <title>Trump Tweets Dashboard</title>
 
      <!-- Boostrap Stylesheet -->
-     <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+     <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen">
 
     <!-- Our own CSS stylesheet -->
-    <link rel="stylesheet" href="css/styles.css" media="screen">
-    
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+
+
   </head>
 
   <body>
@@ -28,7 +29,7 @@
               <span class="sr-only">Toggle Navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
+              <!--span class="icon-bar"></span-->
             </button>
             <div class="col-xs-9 phone-nav">
               <a class="navbar-brand" href="#" id="logo">Trump Tweets</a>
@@ -41,14 +42,14 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="bar_chart.html">Lies by Month</a></li>
-                  <li><a href="pie_chart.html">Lies by Category</a></li>
-                  <li><a href="any_chart.html">Lies by Topic</a></li>
-                  <li><a href="bar_chart.html">Lies by Month</a></li>                 
+                  <li><a href="/bar_chart.html">Tweets by Month</a></li>
+                  <li><a href="/pie_chart.html">Tweets by Time</a></li>
+                  <li><a href="/any_chart.html">Tweets by Topic</a></li>
+                  <!--li><a href="bar_chart.html">Lies by Month</a></li-->                 
                 </ul>
               </li>
-              <li><a href="comparison.html">Comparison</a></li>
-              <li><a href="data.html">Data</a></li>
+              <li><a href="/comparison.html">Comparison</a></li>
+              <!--li><a href="data.html">Data</a></li-->
             </ul>
           </div><!-- /.navbar-collapse -->
         </div>
@@ -56,40 +57,39 @@
     </nav>
     <!-- End of navbar -->
 
-    <!-- Start of container -->
-    <div class="container">
-      <section class="row">
-        <div class="col-md-8">
-          <article class="description-content">
-            <h1 class="description-header">Trump's Misstatements</h1>
-            <hr class="description-hr"/>
-            <img src="images/bar_chart.png" alt="" id="description-image"/> 
-            <p>This project takes scraped twitter data from Donald Trumps account and breaks the tweets down by month, key word and other stuff in Clay's really cool chart.</p>
-            <p>Clay created the code to scrape the Washington Post but after spending 4 straight nights up until 3 we scrapped that and went to plan B.</p>
-          </article>
-        </div>
-
-        <div class="col-md-4"> 
-
-          <!-- Start of Visualizations imageNav Area -->
-          <section id="imageNav-area">
-            <div class="imageNav-content">
-              <h2 class="imageNav-header">Visualizations</h2>
-              <hr />
-              <div id="images">
-                <a href="bar_chart.html"><img src="images/bar_chart.png" alt="Lies by Month" class="imageNav-photo"></a>
-                <a href="pie_chart.html"><img src="images/pie_chart.png" alt="Lies by Category" class="imageNav-photo"></a>
-                <a href="any_chart.html"><img src="images/any_chart.png" alt="Lies by Topic" class="imageNav-photo"></a>
-                <a href="data.html"><img src="images/bar_chart.png" alt="Lies by Month" class="imageNav-photo"></a>
-            </div>
-            </div>
-          </section>
-          <!-- End of the Visualizations imageNav Area -->
-
-        </div>
-      </section>
-    </div>
-    <!-- End of container -->
+       <!-- Start of container -->
+       <div class="container">
+        <section class="row">
+          <div class="col-md-8">
+            <article class="description-content">
+              <h1 class="description-header">Trump's Misstatements</h1>
+              <hr class="description-hr"/>
+              <img src="/images/bar_chart.png" alt="" id="description-image"/> 
+              <p>This project takes scraped twitter data from Donald Trumps account and breaks the tweets down by month, key word and other stuff in Clay's really cool chart.</p>
+              <p>Clay created the code to scrape the Washington Post but after spending 4 straight nights up until 3 we scrapped that and went to plan B.</p>
+            </article>
+          </div>
+  
+          <div class="col-md-4"> 
+  
+            <!-- Start of Visualizations imageNav Area -->
+            <section id="imageNav-area">
+              <div class="imageNav-content">
+                <h2 class="imageNav-header">Visualizations</h2>
+                <hr />
+                <div id="images">
+                  <a href="/bar_chart.html"><img src="/images/bar_chart.png" alt="Tweets by Month" class="imageNav-photo"></a>
+                  <a href="/pie_chart.html"><img src="/images/pie_chart.png" alt="Tweets by Time" class="imageNav-photo"></a>
+                  <a href="/any_chart.html"><img src="/images/any_chart.png" alt="Tweets by Topic" class="imageNav-photo"></a>
+                </div>
+              </div>
+            </section>
+            <!-- End of the Visualizations imageNav Area -->
+  
+          </div>
+        </section>
+      </div>
+      <!-- End of container -->
 
     <!-- Start of footer -->
     <footer class="footer navbar-fixed-bottom">

@@ -9,10 +9,14 @@
     <title>Trump Tweets Dashboard</title>
 
     <!-- Boostrap Stylesheet -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen">
 
     <!-- Our own CSS stylesheet -->
-    <link rel="stylesheet" href="css/styles.css" media="screen">
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <!--script src="d3.min.js"></script-->
+
 
   </head>
 
@@ -28,10 +32,10 @@
               <span class="sr-only">Toggle Navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
+              <!--span class="icon-bar"></span-->
             </button>
             <div class="col-xs-9 phone-nav">
-              <a class="navbar-brand" href="index.html" id="logo">Trump Tweets</a>
+              <a class="navbar-brand" href="/index.html" id="logo">Trump Tweets</a>
             </div>
           </div>
 
@@ -41,13 +45,13 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="bar_chart.html">Lies by Month</a></li>
-                  <li><a href="pie_chart.html">Lies by Category</a></li>
-                  <li><a href="any_chart.html">Lies by Topic</a></li>
-                  <li><a href="bar_chart.html">Lies by Month</a></li>                  
+                  <li><a href="/bar_chart.html">Tweets by Month</a></li>
+                  <li><a href="/pie_chart.html">Tweets by Time</a></li>
+                  <li><a href="/any_chart.html">Tweets by Topic</a></li>
+                  <!--li><a href="bar_chart.html">Lies by Month</a></li-->                  
                 </ul>
               </li>
-              <li><a href="comparison.html">Comparison</a></li>
+              <li><a href="/comparison.html">Comparison</a></li>
               <!--li><a href="/data.html">Data</a></li-->
             </ul>
           </div><!-- /.navbar-collapse -->
@@ -59,43 +63,107 @@
     <!-- Start of container -->
     <div class="container">
       <section class="row">
-        <div class="col-md-8">
           <article class="description-content">
             <h1 class="description-header">Trump Tweets</h1>
-            <hr class="description-hr"/>
-            <img src="images/bar_chart.png" alt="" class="img-responsive"/>
-            <p>This chart displays the count of false claims by month.</p>
-            <p>Click on the dropdown menu to change the category for each false claim.</p>
           </article>
-        </div>
-        <div class="col-md-4"> 
 
-          <!-- Start of Visualizations imageNav Area -->
-          <section id="imageNav-area">
-            <div class="imageNav-content">
-              <h2 class="imageNav-header">Visualizations</h2>
-              <hr />
-              <div id="images">
-                <a href="bar_chart.html"><img src="images/bar_chart.png" alt="Lies by Month - Filtered by Topic" class="imageNav-photo"></a>
-                <a href="pie_chart.html"><img src="images/pie_chart.png" alt="Lies by Category - Filtered by Month" class="imageNav-photo"></a>
-                <a href="any_chart.html"><img src="images/any_chart.png" alt="Lies by Topic - Filtered by Month" class="imageNav-photo"></a>
-                <a href="data.html"><img src="images/bar_chart.png" alt="Lies by Month" class="imageNav-photo"></a>
-              </div>
-              <section class="row">
-                <div class="col-md-8">
-                    <article class="description-content">
-                        <h1 class="description-header">When Does President Trump use Twitter??</h1>
-                        <hr class="description-hr" />
-                        <div id="wrapper" class="wrapper">
-                        </div>// src = flask app format
-                        <p>This chart is a visualization for understanding President Trump's usage of Twitter.</p>
-                    </article>  
-                  </div>    
-            </div>
-          </section>
-          <!-- End of the Visualizations imageNav Area -->
 
-        </div>
+          
+     <!--Code to render the chart by Mac-->     
+          <script>
+      
+
+          var margin = {top: 50, right: 10, bottom: 70, left: 160},
+              width = 1000 - margin.left - margin.right,
+              height = 600 - margin.top - margin.bottom;
+          
+          // Parse the date / time
+          var	parseDate = d3.time.format("%Y-%m").parse;
+          
+          var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+          
+          var y = d3.scale.linear().range([height, 0]);
+          
+          var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom")
+              .tickFormat(d3.time.format("%Y-%m"));
+          
+          var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left")
+              .ticks(10);
+          
+          var svg = d3.select("data/body").append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+              .attr("transform", 
+                    "translate(" + margin.left + "," + margin.top + ")");
+          
+          // Read in the csv file
+          d3.csv("data/claimsdata.csv", function(error, data) {
+          
+              data.forEach(function(d) {
+                  d.date = parseDate(d.date);
+                  d.value = +d.value;
+              });
+            
+            x.domain(data.map(function(d) { return d.date; }));
+            y.domain([0, d3.max(data, function(d) { return d.value; })]);
+          
+            // Transformation of the bar chart
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+              .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", "-.55em")
+                .attr("transform", "rotate(-90)" );
+          
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+              .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                     
+          
+            svg.append('text')
+              .attr('x', 450)
+              .attr('y',-20)
+              .attr('text-anchor', 'middle')
+              .text('Trump Tweets by Month & Year')
+          
+            svg.append('text')
+              .attr('x',-250)
+              .attr('y', -50)
+              .attr('transform', 'rotate(-90)')
+              .attr('text-anchor', 'middle')
+              .text('Number of Tweets')
+          
+            svg.append('text')
+              .attr('x', 400)
+              .attr('y', 550)
+              .attr('text-anchor', 'middle')
+              .text('Month/Year')
+          
+             svg.selectAll("bar")
+                .data(data)
+              .enter().append("rect")
+                .style("fill", "steelblue")
+                .attr("x", function(d) { return x(d.date); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.value); })
+                .attr("height", function(d) { return height - y(d.value); });
+          
+          });
+          
+          </script>
+     <!-- End of Mac's script-->     
       </section>
     </div>
     <!-- End of container -->
@@ -104,7 +172,7 @@
     <footer class="footer navbar-fixed-bottom">
       <div class="two-toned-footer-color"></div>
       <p class="text-muted text-muted-footer text-center">
-        &copy; Copyright Clay, Don, Mac & Matt, LLC.
+        &copy; Visuals by Clay, Don, Mac & Matt.
       </p>
     </footer>
     <!-- End of footer -->
@@ -116,8 +184,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </body>
 
-  <!--adding connections to d3 and Clay's Javasript -->
-    <script src="d3.v5.js"></script>
-    <script src="./js/d3-timer.v1.min.js"></script>
-    <script src="./js/chart.js"></script>
 </html>

@@ -5,15 +5,15 @@
     <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
     <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
      <!-- Boostrap Stylesheet -->
-     <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+     <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen">
     
      <!-- Our own CSS stylesheet -->
-    <link rel="stylesheet" href="css/styles.css" media="screen">
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
 
-    <<style>  
+    <style>  
       html, body, #container {
       width: 100%;
-      height: 90%;
+      height: 100%;
       margin: 0;
       padding: 0;
       }
@@ -32,10 +32,10 @@
               <span class="sr-only">Toggle Navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
-              <span class="icon-bar"></spa>
+              <!--span class="icon-bar"></spa-->
             </button>
             <div class="col-xs-9 phone-nav">
-              <a class="navbar-brand" href="index1.html" id="logo">Trump Tweets</a>
+              <a class="navbar-brand" href="/index1.html" id="logo">Trump Tweets</a>
             </div>
           </div>
 
@@ -45,13 +45,13 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="bar_chart.html">Lies by Month</a></li>
-                  <li><a href="pie_chart.html">Lies by Category</a></li>
-                  <li><a href="any_chart.html">Lies by Topic</a></li>
-                  <li><a href="bar_chart.html">Lies by Month</a></li>                  
+                  <li><a href="bar_chart.html">Tweets by Month</a></li>
+                  <li><a href="/pie_chart.html">Tweets by Time</a></li>
+                  <li><a href="/any_chart.html">Tweets by Topic</a></li>
+                  <!--li><a href="bar_chart.html">Lies by Month</a></li-->                  
                 </ul>
               </li>
-              <li><a href="comparison.html">Comparison</a></li>
+              <li><a href="/comparison.html">Comparison</a></li>
               <!--li><a href="data.html">Data</a></li-->
             </ul>
           </div><!-- /.navbar-collapse -->
@@ -67,31 +67,14 @@
             // code to create a word cloud chart will be here
             anychart.onDocumentReady(function() {
       var data = [
-        {"x":'our', "value": 2751, category: "2019"},
         {"x":'prayers', "value": 65, category: "2019"},
-        {"x":'are', "value": 2869, category: "2019"},  
-        {"x":'with', "value": 2768, category: "2019"},  
-        {"x":'the', "value": 1811, category: "2019"},
         {"x":'families', "value": 122, category: "2019"},
-        {"x":'of', "value": 7222, category: "2019"},
         {"x":'victims', "value": 47, category: "2019"},
-        {"x":'and', "value": 8686, category: "2019"},
         {"x":'congregation', "value": 1, category: "2019"},
         {"x":'yesterday', "value": 65, category: "2019"},
         {"x":'church', "value": 7, category: "2019"},
         {"x":'attack', "value": 88, category: "2019"},
-        {"x":'it', "value": 2709, category: "2019"},
-        {"x":'was', "value": 1828, category: "2019"},
-        {"x":'over', "value": 451, category: "2019"},
-        {"x":'in', "value": 5332, category: "2019"},
-        {"x":'seconds', "value": 3, category: "2019"},
-        {"x":'thanks', "value": 99, category: "2019"},
-        {"x":'to', "value": 9395, category: "2019"},
-        {"x":'brave', "value": 65, category: "2019"},
         {"x":'parishioners', "value": 1, category: "2019"},
-        {"x":'who', "value": 1066, category: "2019"},
-        {"x":'acted', "value": 7, category: "2019"},
-        {"x":'protect', "value": 128, category: "2019"},
         {"x":'fellow', "value": 16, category: "2019"},
         {"x":'worshippers', "value": 1, category: "2019"},
         {"x":'lives', "value": 95, category: "2019"},
@@ -134,7 +117,7 @@
         {"x":'should', "value": 623, category: "2019"},
         {"x":'always', "value": 214, category: "2019"},
         {"x":'be', "value": 2529, category: "2019"},
-        {"x":'nancypelosi', "value": 454, category: "2019"},
+        {"x":'nancy pelosi', "value": 454, category: "2019"},
         {"x":'highlyrespected', "value": 182, category: "2019"},
         {"x":'dishonest', "value": 89, category: "2019"},
         {"x":'badratings', "value": 107, category: "2019"},
@@ -146,8 +129,6 @@
         {"x": "horific", "value": 14, category: "2012"},
         {"x": "newyork", "value": 966, category: "2012"},
         {"x": "allcometogether", "value": 1991, category: "2012"},
-        {"x": "joe", "value": 131, category: "2012"},
-        {"x": "joe", "value": 131, category: "2012"},
         {"x": "last", "value": 321, category: "2012"},
         {"x": "fight", "value": 132, category: "2012"},
         {"x": "openborders", "value": 303, category: "2012"},
@@ -204,7 +185,7 @@
     
     // add an event listener
     chart.listen("pointClick", function(e){
-      var url = "https://www.washingtonpost.com/graphics/politics/trump-claims-database/" + e.point.get("x");
+      var url = "http://www.trumptwitterarchive.com/archive/" + e.point.get("x");
       window.open(url, "_blank");
     });
     });
@@ -217,7 +198,7 @@
     <footer class="footer navbar-fixed-bottom">
       <div class="two-toned-footer-color"></div>
       <p class="text-muted text-muted-footer text-center">
-        &copy; Copyright Clay, Don, Mac & Matt, LLC.
+        &copy; Visuals by Clay, Don, Mac & Matt
       </p>
     </footer>
     <!-- End of footer -->
