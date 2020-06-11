@@ -3,6 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Date
 import os
 
+print(os.chdir('../class/data-viz-group-project'))
+
 Base = declarative_base()
 class Tweets(Base):
     __tablename__ = 'all_tweets'
@@ -21,4 +23,5 @@ database_uri = 'postgres+psycopg2://postgres:postgres@localhost/classproject2'
 engine = create_engine(database_uri)
 Base.metadata.create_all(engine)
 
-print(os.getcwd())
+path = os.getcwd()
+print(path)

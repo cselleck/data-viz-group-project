@@ -1,47 +1,34 @@
-import numpy as np
-
-import sqlalchemy
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func
-
-from flask import Flask, jsonify
-from flask_restful import Resource, Api
+import pandas as pd
+from flask import Blueprint
+from flask_api import FlaskAPI
 import os
 
+os.chdir('../data-viz-group-project')
+path = os.getcwd() + '/trumpTweets.csv'
+api_data = pd.read_csv(path)
+api_data = api_data.to_json()
 
-print(os.getcwd())
-keywords = []
+theme = Blueprint(
+    'flask-api', __name__,
+    url_prefix='/flask-api',
+    template_folder = 'templates', static_folder='static'
+)
 
-app = Flask(__name__)
+app = FlaskAPI(__name__)
+app.blueprints['flask-api'] = theme
 
-engine = create_engine()
-Base = automap_base()
-Base.prepare(engine, reflect=True)
-Mistruth = Base.classes.mistruth
-
-@app.route ('/api/v1.0/trump_untruths')
-
+@app.route ('/api/v1.0/alltweets')
 def untruths():
-    return jsonify(data_points)
+    return api_data
+
 
 @app.route("/")
 def welcome():
     return(
         f'Welcome to our API!<br/>'
         f'Available Routes: <br/>'
-        f'/api/v1.0/trump_untruths (returns all untruths) <br/>'
-        f'/api/v1.0/trump_untruths/keyword returns all untruths with associated keyword) <br/>'
-        f'Keywords include: '
+        f'/api/v1.0/alltweets (returns all tweets as json) <br/>'
     )
-@app.route('/api/v1.0/trump_mistruths/<keyword>')
-def find_keyword(keyword):
-    canonicalized = keyword.lower()
-    for word in keywords:
-        search_term = word.lower()
-        if search_term == canonicalized:
-            return jsonify(keyword)
-    return jsonify({'error': f'{keyword} not found in keywords'}), 404
 
 
 if __name__ == '__main__':
