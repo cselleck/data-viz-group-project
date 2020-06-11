@@ -13,15 +13,19 @@ async function drawChart() {
 
 
     // Parse Data/Cast as numbers
-    dataset = d3.csv("trumpTweets.csv", function(d) {
-        return {
-            tweetType: d.is_retweet,
-            tweetYear: d.Year,
-            tweetHour: d.Hour
-        };
-    }).then(function(data) {
-        console.log(data[0]);
-    });
+    const pathToJSON = "trumpTweets.csv";
+    var dataset = [];
+    await d3
+        .csv(pathToJSON, function(d) {
+            dataset.push({
+                tweetType: d.is_retweet,
+                tweetYear: d.Year,
+                tweetHour: d.Hour
+            });
+        })
+        .then(function(data) {
+            console.log("finished");
+        });
 
     //used to generate a random row later
     const index = dataset.length
@@ -42,10 +46,10 @@ async function drawChart() {
         "8 PM to 12 AM"
     ]
     const timeId = d3.range(timeofDay.length)
-    const getStatusKey = ({ is_retweet, Year }) => [is_retweet, Year].join("--")
+        //const getStatusKey = ({ is_retweet, Year }) => [is_retweet, Year].join("--")
 
-    const stackedProbabilities = {}
-    const totalHours = {}
+    //const stackedProbabilities = {}
+    //const totalHours = {}
 
     //dataset.forEach(startingPoint => {
     //     const key = getStatusKey(startingPoint)
@@ -85,7 +89,7 @@ async function drawChart() {
         //finds a random index that has not been used before
         for (i = 0; i < index; i++) {
             const randomRow = getRandomValue(index)
-            if ($.inArray(randomRow, usedIndex) == -1) {
+            if (randomRow.inArray(randomRow, usedIndex) == -1) {
                 continue;
             }
         }

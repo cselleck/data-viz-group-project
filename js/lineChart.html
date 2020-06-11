@@ -1,7 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
+
+</html>>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Trump Tweets Dashboard</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="css/styles.css" media="screen">
     <script data-require="d3@3.5.3" data-semver="3.5.3" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
     <style>
         body {
@@ -28,123 +37,87 @@
 </head>
 
 <body>
-    // entered outside
-    <script type="text/javascript">
-        // ref: http://stackoverflow.com/a/1293163/2343
-        // This will parse a delimited string into an array of
-        // arrays. The default delimiter is the comma, but this
-        // can be overriden in the second argument.
-        function CSVToArray(strData, strDelimiter) {
-            // Check to see if the delimiter is defined. If not,
-            // then default to comma.
-            strDelimiter = (strDelimiter || ",");
+    <!-- Start of navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid navbar-custom">
 
-            // Create a regular expression to parse the CSV values.
-            var objPattern = new RegExp(
-                (
-                    // Delimiters.
-                    "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="row">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle Navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <!--span class="icon-bar"></span-->
+            </button>
+                    <div class="col-xs-9 phone-nav">
+                        <a class="navbar-brand" href="index.html" id="logo">Trump Tweets</a>
+                    </div>
+                </div>
 
-                    // Quoted fields.
-                    "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
-
-                    // Standard fields.
-                    "([^\"\\" + strDelimiter + "\\r\\n]*))"
-                ),
-                "gi"
-            );
-
-
-            // Create an array to hold our data. Give the array
-            // a default empty first row.
-            var arrData = [
-                []
-            ];
-
-            // Create an array to hold our individual pattern
-            // matching groups.
-            var arrMatches = null;
-
-
-            // Keep looping over the regular expression matches
-            // until we can no longer find a match.
-            while (arrMatches = objPattern.exec(strData)) {
-
-                // Get the delimiter that was found.
-                var strMatchedDelimiter = arrMatches[1];
-
-                // Check to see if the given delimiter has a length
-                // (is not the start of string) and if it matches
-                // field delimiter. If id does not, then we know
-                // that this delimiter is a row delimiter.
-                if (
-                    strMatchedDelimiter.length &&
-                    strMatchedDelimiter !== strDelimiter
-                ) {
-
-                    // Since we have reached a new row of data,
-                    // add an empty row to our data array.
-                    arrData.push([]);
-
-                }
-
-                var strMatchedValue;
-
-                // Now that we have our delimiter out of the way,
-                // let's check to see which kind of value we
-                // captured (quoted or unquoted).
-                if (arrMatches[2]) {
-
-                    // We found a quoted value. When we capture
-                    // this value, unescape any double quotes.
-                    strMatchedValue = arrMatches[2].replace(
-                        new RegExp("\"\"", "g"),
-                        "\""
-                    );
-
-                } else {
-
-                    // We found a non-quoted value.
-                    strMatchedValue = arrMatches[3];
-
-                }
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right navbar-right-custom">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="bar_chart.html">Tweets by Month</a></li>
+                                <li><a href="pie_chart.html">Tweets by Time</a></li>
+                                <li><a href="any_chart.html">Tweets by Topic</a></li>
+                                <!--li><a href="bar_chart.html">Lies by Month</a></li-->
+                            </ul>
+                        </li>
+                        <li><a href="comparison.html">Comparison</a></li>
+                        <!--li><a href="data.html">Data</a></li-->
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- End of navbar -->
 
 
-                // Now that we have our value string, let's add
-                // it to the data array.
-                arrData[arrData.length - 1].push(strMatchedValue);
-            }
-
-            // Return the parsed data.
-            return (arrData);
-        }
-    </script>
     <script>
-        const us = ["us", "republicans", "we", "our", "i", "me", "my", "republican", "gop", "right", "i'm"]
-        const them = ["they", "them", "dems", "democrats", "fake", "failing", "schumer", "pelosi", "left", "democratic", "radical"]
-        var myData = "date	New York	San Francisco	Austin\n\
-20111001	63.4	62.7	72.2\n\
-20111002	58.0	59.9	67.7\n\
-20111003	53.3	59.1	69.4\n\
-20111004	55.7	58.8	68.0\n\
-20111005	64.2	58.7	72.4\n\
-20111006	58.8	57.0	77.0\n\
-20111007	57.9	56.7	82.3\n\
-20111008	61.8	56.8	78.9\n\
-20111009	69.3	56.7	68.8\n\
-20111010	71.2	60.1	68.7\n\
-20111011	68.7	61.1	70.3\n\
-20111012	61.8	61.5	75.3\n\
-20111013	63.0	64.3	76.6\n\
-20111014	66.9	67.1	66.6\n\
-20111015	61.7	64.6	68.0\n\
-20111016	61.8	61.6	70.6\n\
-20111017	62.8	61.1	71.1\n\
-20111018	60.8	59.2	70.0\n\
-20111019	62.1	58.9	61.6\n\
-20111020	65.1	57.2	57.4\n\
-20111021	55.6	56.4	64.3\n\
-20111022	54.4	60.7	72.4\n";
+        var myData = "date	Us	Them\n\
+20170101	142	56\n\
+20170201	134	66\n\
+20170301	101	78\n\
+20170401	184	112\n\
+20170501	66	94\n\
+20170601	90	142\n\
+20170701	132	111\n\
+20170801	140	104\n\
+20170901	69	98\n\
+20171001	101	100\n\
+20171101	89	99\n\
+20171201	142	184\n\
+20180101	184	162\n\
+20180201	101	147\n\
+20180301	176	133\n\
+20180401	132	178\n\
+20180501	165	135\n\
+20180601	99	106\n\
+20180701	165	134\n\
+20180801	201	245\n\
+20180901	166	198\n\
+20181001	165	134\n\
+20181101	132	111\n\
+20181201	98	146\n\
+20190101	122	99\n\
+20190201	130	66\n\
+20190301	184	204\n\
+20190401	165	149\n\
+20190501	122	136\n\
+20190601	212	163\n\
+20190701	108	104\n\
+20190801	166	199\n\
+20190901	197	263\n\
+20191001	154	202\n\
+20191101	201	276\n\
+20191201	265	224\n";
+
 
         var margin = {
                 top: 20,
@@ -266,7 +239,7 @@
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Temperature (ºF)");
+            .text("Count");
 
         var city = svg.selectAll(".city")
             .data(cities)
