@@ -24,6 +24,8 @@
 
 <script>
 
+
+
 var margin = {top: 50, right: 10, bottom: 70, left: 160},
     width = 1000 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
@@ -109,7 +111,9 @@ d3.csv("claimsmonth.csv", function(error, data) {
       .attr("x", function(d) { return x(d.date); })
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.value); })
-      .attr("height", function(d) { return height - y(d.value); });
+      .attr("height", function(d) { return height - y(d.value); })
+      .attr("fill", function (d){ return colorScale(d[colorColumn]); });
+      bars.exit().remove();
 
 });
 
