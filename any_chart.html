@@ -5,10 +5,10 @@
     <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
     <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
      <!-- Boostrap Stylesheet -->
-     <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen">
+     <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
     
      <!-- Our own CSS stylesheet -->
-    <link rel="stylesheet" href="/css/styles.css" media="screen">
+    <link rel="stylesheet" href="css/styles.css" media="screen">
 
     <style>  
       html, body, #container {
@@ -35,7 +35,7 @@
               <!--span class="icon-bar"></spa-->
             </button>
             <div class="col-xs-9 phone-nav">
-              <a class="navbar-brand" href="/index.html" id="logo">Trump Tweets</a>
+              <a class="navbar-brand" href="index.html" id="logo">Trump Tweets</a>
             </div>
           </div>
 
@@ -46,12 +46,12 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="bar_chart.html">Tweets by Month</a></li>
-                  <li><a href="/pie_chart.html">Tweets by Time</a></li>
-                  <li><a href="/any_chart.html">Tweets by Topic</a></li>
+                  <li><a href="pie_chart.html">Tweets by Time</a></li>
+                  <li><a href="any_chart.html">Tweets by Topic</a></li>
                   <!--li><a href="bar_chart.html">Lies by Month</a></li-->                  
                 </ul>
               </li>
-              <li><a href="/comparison.html">Comparison</a></li>
+              <li><a href="comparison.html">Comparison</a></li>
               <!--li><a href="data.html">Data</a></li-->
             </ul>
           </div><!-- /.navbar-collapse -->
@@ -67,9 +67,7 @@
             // code to create a word cloud chart will be here
             anychart.onDocumentReady(function() {
       var data = [
-      
- 
-    {"x":'prayers', "value": 65, category: "Year 2018"},
+      {"x":'prayers', "value": 65, category: "Year 2018"},
     {"x":'families', "value": 122, category: "Year 2017"},
     {"x":'victims', "value": 47, category: "Year 2019"},
     {"x":'congregation', "value": 1, category: "Year 2019"},
@@ -158,7 +156,7 @@
       chart.draw();
     
       // format the tooltips
-    var formatter = "this word has been used more than {%value}{scale:(1)(1000)(1000)|( times)}";
+      var formatter = "this word has been used more than {%value}{scale:(1)(1000)(1000)|( times)}";
     var tooltip = chart.tooltip();
     tooltip.format(formatter);
     chart.angles([0, -45, 90])
