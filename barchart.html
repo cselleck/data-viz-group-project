@@ -29,6 +29,7 @@
 var margin = {top: 50, right: 10, bottom: 70, left: 160},
     width = 1000 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
+    var colorColumn = "Month/Year";
 
 // Parse the date / time
 var	parseDate = d3.time.format("%Y-%m").parse;
@@ -64,6 +65,7 @@ d3.csv("claimsmonth.csv", function(error, data) {
 	
   x.domain(data.map(function(d) { return d.date; }));
   y.domain([0, d3.max(data, function(d) { return d.value; })]);
+  colorScale.domain(data.map(function (d){ return d[colorColumn]; }));
 
   // Transformation of the bar chart
   svg.append("g")
