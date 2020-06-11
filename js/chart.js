@@ -1,7 +1,5 @@
 async function drawChart() {
 
-    // 1. Access data
-    //const dataset = await d3.csv("trumpTweets.csv");
 
     // Parse Data/Cast as numbers
     dataset = d3.csv("trumpTweets.csv", function(d) {
@@ -12,36 +10,12 @@ async function drawChart() {
         };
     }).then(function(data) {
         console.log(data[0]);
-        const key = getStatusKey(startingPoint)
-        let stackedProbability = 0
-        totalHours[startingPoint["Hour"]] += 1
-        stackedProbabilities[key] = timeofDay.map((Hour) => {
-            if (Hour == "12 AM to 4 AM") {
-                return .1
-            } else if (Hour == "4 AM to 8 AM") {
-                return .25
-            } else if (Hour == "8 AM to 12 PM") {
-                return .45
-            } else if (Hour == "12 PM to 4 PM") {
-                return .60
-            } else if (Hour == "4 PM to 8 PM") {
-                return .80
-            } else {
-                return .90
-            }
-        })
-    })
+    });
 
-
-    //const d 
-
-    // function getTweetType(tweetType) {
-    //     if (tweetType == "False") {
-    //         return "tweet"
-    //     } else {
-    //        return "retweet"
-    //     }
-    // }
+    //used to generate a random row later
+    const index = dataset.length
+    console.log(index)
+    const usedIndex = []
 
     const tweets = ["True", "False"]
     const tweetTypeId = d3.range(tweets.length)
@@ -82,30 +56,7 @@ async function drawChart() {
 
     //     })
     // })
-    console.log(totalHours)
 
-    // We are hard-coding values here instead of obtaining them dynamically so we can control the order
-    // const timeofDay = [
-    //       "12 AM to 4 AM",
-    //     "4 AM to 8 AM",
-    //     "8 AM to 12 PM",
-    //     "12 PM to 4 PM",
-    //     "4 PM to 8 PM",
-    //     "8 PM to 12 AM"
-    // ]
-
-    //time = d3.time.format("%m/%d/%Y %H:%M:%S").parse("01/02/2014 08:22:05");
-    //    console.log(time);
-    //  var timeFormat = d3.time.format("%m/%d/%Y");
-    // var cd = data.filter(function(d) {
-    //   return (d.Style == "solo")
-    // })
-    // .map(function(d){
-    //   d["starting date"] = timeFormat.parse(d["starting date"]);
-    //    d["arrival date"] = timeFormat.parse(d["arrival date"]);
-    //   return d;
-    //  });
-    // const timeId = d3.range(timeofDay.length)
 
     // const tweetYear = d => d3.time.format("%Y").parse(d.created_at)
     // const yearNames = ["2017", "2018", "2019"]
@@ -113,39 +64,34 @@ async function drawChart() {
 
     // const getStatusKey = ({ tweetTypes, twtYear }) => [tweetTypes, twtYear].join("--")
 
-    // const endTimeBucket = {}
-    //     //     const stackedProbabilities = {}
-    //     //     dataset.forEach(startingPoint => {
-    //     //             const key = getStatusKey(startingPoint)
-    //     //             return stackedProbability
-    //     //         }
-    //     //     })
-    //     // })
-
-    // let currentTweet = 0
-    //dataset.foreach(startingPoint => [
-    //    startingPoint.Hours => 
-    //])
     let currentTweet = 0
 
     function generateTweet(elapsed) {
         currentTweet++
         // Use our utility functions (bottom) to select a random value from our arrays
-        const tweetTypes = getRandomValue(tweetTypeId)
-        const twtYear = getRandomValue(tweetYearId)
-            // const statusKey = getStatusKey({
-            // tweetTypes: tweets[tweetTypes],
-            // twtYear: yearNames[twtYear],
-            // })
-            // const timeBucket = d3.scale.threshold(tweetTime)
-            // .domain([0, 4, 8, 12, 16, 20, 24])
-            // .range(["12 AM to 4 AM", "4 AM to 8 AM", "8 AM to 12 PM", "12 PM to 4 PM", "4 PM to 8 PM", "8 PM to 12 AM"]);
 
+        //finds a random index that has not been used before
+        for (i = 0; i < index; i++) {
+            const randomRow = getRandomValue(index)
+            if ($.inArray(randomRow, usedIndex) == -1) {
+                continue;
+            }
+        }
+        const tweetTypes = dataset[randomRow].tweetType
+
+        const twtYear = dataset[randomRow].tweetYear
+        const twtHour = dataset[randomRow].tweetHour
+
+        console.log(twtYear)
+        console.log(tweetTypes)
+        console.log(twtHour)
+            //add randomRow to the used index to exclude using it again
+        usedIndex.append(randomRow)
         return {
             id: currentTweet,
             tweetTypes,
             twtYear,
-            // timeBucket,
+            twtHour,
             startTime: elapsed + getRandomNumberInRange(-0.1, 0.1),
             yJitter: getRandomNumberInRange(-15, 15),
         }
@@ -350,7 +296,7 @@ async function drawChart() {
 
     // 7. Set up interactions
 
-    const maximumPeople = 10000
+    const maximumPeople = index
     let people = []
     const markersGroup = bounds.append("g")
         .attr("class", "markers-group")
@@ -371,7 +317,7 @@ async function drawChart() {
         const retweets = markersGroup.selectAll(".marker-circle")
             .data(people.filter(d => (
                 xProgressAccessor(d) < 1 &&
-                tweetType(d) == true
+                tweetType(d) == "True"
             )), d => d.id)
         retweets.enter().append("circle")
             .attr("class", "marker marker-circle")
@@ -383,7 +329,7 @@ async function drawChart() {
         const tweets = markersGroup.selectAll(".marker-triangle")
             .data(people.filter(d => (
                 xProgressAccessor(d) < 1 &&
-                tweetType(d) == false
+                tweetType(d) == "False"
             )), d => d.id_str)
         tweets.enter().append("polygon")
             .attr("class", "marker marker-triangle")
@@ -397,7 +343,7 @@ async function drawChart() {
         markers.style("transform", d => {
                 const x = xScale(xProgressAccessor(d))
                 const yStart = startYScale(tweetYear(d))
-                const yEnd = endYScale(timeBucket(d))
+                const yEnd = endYScale(tweetHour(d))
                 const yChange = yEnd - yStart
                 const yProgress = yTransitionProgressScale(
                     xProgressAccessor(d)
