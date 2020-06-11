@@ -1,3 +1,14 @@
+// utility functions
+
+const getRandomNumberInRange = (min, max) => Math.random() * (max - min) + min
+
+const getRandomValue = arr => arr[Math.floor(getRandomNumberInRange(0, arr.length))]
+
+const sentenceCase = str => [
+    str.slice(0, 1).toUpperCase(),
+    str.slice(1),
+].join("")
+
 async function drawChart() {
 
 
@@ -30,6 +41,7 @@ async function drawChart() {
         "4 PM to 8 PM",
         "8 PM to 12 AM"
     ]
+    const timeId = d3.range(timeofDay.length)
     const getStatusKey = ({ is_retweet, Year }) => [is_retweet, Year].join("--")
 
     const stackedProbabilities = {}
@@ -370,8 +382,8 @@ async function drawChart() {
         const endingPercentages = d3.merge(
             endingGroups.map((peopleWithSameEnding, endingId) => (
                 d3.merge(
-                    tweetTypeIds.map(tweetTypeId => (
-                        tweetYear.map(tweetYearId => {
+                    tweetTypeId.map(tweetType => (
+                        tweetYearId.map(tweetYear => {
                             const peopleInBar = peopleWithSameEnding.filter(d => (
                                 tweetType(d) == tweetTypeId
                             ))
@@ -443,15 +455,3 @@ async function drawChart() {
     d3.timer(updateMarkers)
 }
 drawChart()
-
-
-// utility functions
-
-const getRandomNumberInRange = (min, max) => Math.random() * (max - min) + min
-
-const getRandomValue = arr => arr[Math.floor(getRandomNumberInRange(0, arr.length))]
-
-const sentenceCase = str => [
-    str.slice(0, 1).toUpperCase(),
-    str.slice(1),
-].join("")
