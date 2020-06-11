@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Trump Tweets Dashboard</title>
+
+    <!-- Boostrap Stylesheet -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen">
+
+    <!-- Our own CSS stylesheet -->
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <!--script src="d3.min.js"></script-->
+
+
+  </head>
+
+  <body>
+    <!-- Start of navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid navbar-custom">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="row">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle Navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <!--span class="icon-bar"></span-->
+            </button>
+            <div class="col-xs-9 phone-nav">
+              <a class="navbar-brand" href="/index.html" id="logo">Trump Tweets</a>
+            </div>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right navbar-right-custom">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/bar_chart.html">Tweets by Month</a></li>
+                  <li><a href="/pie_chart.html">Tweets by Time</a></li>
+                  <li><a href="/any_chart.html">Tweets by Topic</a></li>
+                  <!--li><a href="bar_chart.html">Lies by Month</a></li-->                  
+                </ul>
+              </li>
+              <li><a href="/comparison.html">Comparison</a></li>
+              <!--li><a href="/data.html">Data</a></li-->
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div>
+      </div><!-- /.container-fluid -->
+    </nav>
+    <!-- End of navbar -->
+
+    <!-- Start of container -->
+    <div class="container">
+      <section class="row">
+          <article class="description-content">
+            <h1 class="description-header">Trump Tweets</h1>
+          </article>
+
+
+          
+     <!--Code to render the chart by Mac-->     
+          <script>
+      
+
+          var margin = {top: 50, right: 10, bottom: 70, left: 160},
+              width = 1000 - margin.left - margin.right,
+              height = 600 - margin.top - margin.bottom;
+          
+          // Parse the date / time
+          var	parseDate = d3.time.format("%Y-%m").parse;
+          
+          var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+          
+          var y = d3.scale.linear().range([height, 0]);
+          
+          var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom")
+              .tickFormat(d3.time.format("%Y-%m"));
+          
+          var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left")
+              .ticks(10);
+          
+          var svg = d3.select("data/body").append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+              .attr("transform", 
+                    "translate(" + margin.left + "," + margin.top + ")");
+          
+          // Read in the csv file
+          d3.csv("data/claimsdata.csv", function(error, data) {
+          
+              data.forEach(function(d) {
+                  d.date = parseDate(d.date);
+                  d.value = +d.value;
+              });
+            
+            x.domain(data.map(function(d) { return d.date; }));
+            y.domain([0, d3.max(data, function(d) { return d.value; })]);
+          
+            // Transformation of the bar chart
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+              .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", "-.55em")
+                .attr("transform", "rotate(-90)" );
+          
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+              .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                     
+          
+            svg.append('text')
+              .attr('x', 450)
+              .attr('y',-20)
+              .attr('text-anchor', 'middle')
+              .text('Trump Tweets by Month & Year')
+          
+            svg.append('text')
+              .attr('x',-250)
+              .attr('y', -50)
+              .attr('transform', 'rotate(-90)')
+              .attr('text-anchor', 'middle')
+              .text('Number of Tweets')
+          
+            svg.append('text')
+              .attr('x', 400)
+              .attr('y', 550)
+              .attr('text-anchor', 'middle')
+              .text('Month/Year')
+          
+             svg.selectAll("bar")
+                .data(data)
+              .enter().append("rect")
+                .style("fill", "steelblue")
+                .attr("x", function(d) { return x(d.date); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.value); })
+                .attr("height", function(d) { return height - y(d.value); });
+          
+          });
+          
+          </script>
+     <!-- End of Mac's script-->     
+      </section>
+    </div>
+    <!-- End of container -->
+
+    <!-- Start of footer -->
+    <footer class="footer navbar-fixed-bottom">
+      <div class="two-toned-footer-color"></div>
+      <p class="text-muted text-muted-footer text-center">
+        &copy; Visuals by Clay, Don, Mac & Matt.
+      </p>
+    </footer>
+    <!-- End of footer -->
+
+    <!-- jQuery CDN -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <!-- Bootstrap CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </body>
+
+</html>

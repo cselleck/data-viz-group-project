@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Trump Tweet Cloud Chart</title>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+  <style>
+    html, body, #container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    }
+  </style> 
+ </head>
+  <body>
+   <div id="container"></div>
+
+   <script>
+    anychart.onDocumentReady(function() {
+        // code to create a word cloud chart will be here
+        anychart.onDocumentReady(function() {
+
+  var data = [
+ 
+    {"x":'prayers', "value": 65, category: "Year 2018"},
+    {"x":'families', "value": 122, category: "Year 2017"},
+    {"x":'victims', "value": 47, category: "Year 2019"},
+    {"x":'congregation', "value": 1, category: "Year 2019"},
+    {"x":'fakenews', "value": 7000, category: "Year 2020"},
+    {"x":'church', "value": 7, category: "Year 2019"},
+    {"x":'attack', "value": 88, category: "Year 2019"},
+    {"x":'seconds', "value": 3, category: "Year 2019"},
+    {"x":'brave', "value": 65, category: "Year 2019"},
+    {"x":'parishioners', "value": 1, category: "Year 2019"},
+    {"x":'worshippers', "value": 1, category: "Year 2019"},
+    {"x":'heroes', "value": 62, category: "Year 2019"},
+    {"x":'texas', "value": 119, category: "Year 2019"},
+    {"x":'jobs', "value": 439, category: "Year 2019"},
+    {"x":'russia', "value": 355, category: "Year 2019"},
+    {"x":'keep america great', "value": 409, category: "Year 2019"},
+    {"x":'laws', "value": 116, category: "Year 2019"},
+    {"x":'allowing', "value": 27, category: "Year 2019"},
+    {"x":'carry', "value": 6, category: "Year 2019"},
+    {"x":'arms', "value": 16, category: "Year 2017"},
+    {"x":'impeach', "value": 94, category: "Year 2019"},
+    {"x":'christmas', "value": 36, category: "Year 2019"},
+    {"x":'life', "value": 119, category: "Year 2019"},
+    {"x":'melania', "value": 95, category: "Year 2019"},
+    {"x":'obama administration', "value": 706, category: "Year 2019"},
+    {"x":'fox and friends', "value": 280, category: "Year 2019"},
+    {"x":'nancy pelosi', "value": 454, category: "Year 2019"},
+    {"x":'highly respected', "value": 182, category: "Year 2018"},
+    {"x":'dishonest', "value": 89, category: "Year 2019"},
+    {"x":'bad ratings', "value": 107, category: "Year 2019"},
+    {"x":'jewish leader', "value": 87, category: "Year 2019"},
+    {"x":'wonderful', "value": 188, category: "Year 2019"},
+    {"x":'statements', "value": 39, category: "Year 2019"},
+    {"x": "since elected", "value": 297, category: "Year 2018"},
+    {"x": "horific", "value": 14, category: "Year 2020"},
+    {"x": "new york", "value": 966, category: "Year 2020"},
+    {"x": "joe", "value": 131, category: "Year 2019"},
+    {"x": "joe", "value": 131, category: "Year 2019"},
+    {"x": "last", "value": 321, category: "Year 2018"},
+    {"x": "open borders", "value": 303, category: "Year 2019"},
+    {"x": "full recovery", "value": 205, category: "Year 2018"},
+    {"x": "crazy", "value": 114, category: "Year 2018"},
+    {"x": "hoax", "value": 153, category: "Year 2019"},
+    {"x": "california", "value": 108, category: "Year 2019"},
+    {"x": "tremendous", "value": 140, category: "Year 2019"},
+    {"x": "fight", "value": 132, category: "Year 2019"},
+    {"x": "illegal", "value": 235, category: "Year 2018"},
+    {"x": "media", "value": 591, category: "Year 2020"},
+    {"x": "stock market", "value": 388, category: "Year 2018"},
+    {"x": "problems", "value": 39, category: "Year 2018"},
+    {"x": "homeless", "value": 13, category: "Year 2018"},
+    {"x": "records", "value": 56, category: "Year 2018"},
+    {"x": "spirit", "value": 34, category: "Year 2018"},
+    {"x": "fox business", "value": 41, category: "Year 2018"},
+    {"x": "economy", "value": 317, category: "Year 2018"},
+    {"x": "workers", "value": 120, category: "Year 2018"},
+    {"x": "experts", "value": 22, category: "Year 2018"},
+    {"x": "investigate", "value": 45, category: "Year 2018"},
+    {"x": "whistleblower", "value": 138, category: "Year 2018"},
+    {"x": "rudy giulani", "value": 21, category: "Year 2018"},
+    {"x": "ukraine", "value": 148, category: "Year 2019"},
+    {"x": "afghanistan", "value": 20, category: "Year 2020"},
+    {"x": "democrats", "value": 1083, category: "Year 2020"},
+    {"x": "republicans", "value": 343, category: "Year 2020"},    
+    {"x": "coronavirus", "value": 422, category: "Year 2020"},
+    {"x": "Disappear", "value": 267, category: "Year 2020"},
+    {"x": "Believe me", "value": 261, category: "Year 2020"},
+    {"x": "Stimulus check", "value": 229, category: "Year 2020"},
+    {"x": "Testing", "value": 22, category: "Year 2020"},
+    {"x": "Trace", "value": 150, category: "Year 2020"},
+    {"x": "Surveillance", "value": 148, category: "Year 2020"},
+ 
+  ];
+
+ // create a tag (word) cloud chart
+  var chart = anychart.tagCloud(data);
+
+   // set a chart title
+  chart.title('Frequent words in Trump Tweets')
+  // set an array of angles at which the words will be laid out
+  chart.angles([0])
+  // enable a color range
+  chart.colorRange(true);
+  // set the color range length
+  chart.colorRange().length('80%');
+
+  // display the word cloud chart
+  chart.container("container");
+  chart.draw();
+
+  // format the tooltips
+var formatter = "this word has been used more than {%value}{scale:(1)(1000)(1000)|( times)}";
+var tooltip = chart.tooltip();
+tooltip.format(formatter);
+chart.angles([0, -45, 90])
+
+// add an event listener
+chart.listen("pointClick", function(e){
+  var url = "http://www.trumptwitterarchive.com/archive" + e.point.get("x");
+  window.open(url, "_blank");
+});
+});
+    });
+    </script>
+  </body>
+</html>
