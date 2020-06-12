@@ -80,6 +80,16 @@
 	  font: 10px sans-serif;
 	}
 
+  .toolTip {
+  position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #6F257F;
+  padding: 14px;
+  text-align: center;}
+
 	.axis path,
 	.axis line {
 	  fill: none;
@@ -100,6 +110,8 @@
 var margin = {top: 50, right: 10, bottom: 70, left: 160},
     width = 1000 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
+
+    var tooltip = d3.select("body").append("div").attr("class", "toolTip");
 
 // Parse the date / time
 var	parseDate = d3.time.format("%Y-%m").parse;
@@ -177,7 +189,15 @@ d3.csv("claimsmonth.csv", function(error, data) {
       .attr("x", function(d) { return x(d.date); })
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.value); })
-      .attr("height", function(d) { return height - y(d.value); });
+      .attr("height", function(d) { return height - y(d.value); })
+      .on("mousemove", function(d){
+            tooltip
+              .style("left", d3.event.pageX - 50 + "px")
+              .style("top", d3.event.pageY - 70 + "px")
+              .style("display", "inline-block")
+              .html(("There were") + "<br>" + (d.value) + " tweets");
+        })
+    		.on("mouseout", function(d){ tooltip.style("display", "none");});
 
 });
 
