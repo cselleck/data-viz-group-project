@@ -35,6 +35,10 @@ body {
 
 .navbar-custom {
     background-color: #fff;
+    animation: bounce;
+    /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s;
+    /* don't forget to set a duration! */
 }
 
 #logo {
@@ -135,6 +139,10 @@ body {
     font-size: 16px;
     line-height: 30px;
     color: rgb(69, 4, 75);
+    animation: bounce;
+    /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s;
+    /* don't forget to set a duration! */
 }
 
 .description-text {

@@ -31,10 +31,13 @@ def welcome():
         f'/api/v1.0/alltweets (returns all tweets as json) <br/>'
 
     )
+
+
+    
 @app.route("/")
 def index():
     return render_template("index.html")
-    
+
 
 @app.route("/bar_chart")
 def bar_chart():
