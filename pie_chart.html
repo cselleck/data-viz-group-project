@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Trump Tweets Dashboard</title>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="static/css/styles.css" media="screen">
+    <script data-require="d3@3.5.3" data-semver="3.5.3" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+        
+        .x.axis path {
+            display: none;
+        }
+        
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Start of navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid navbar-custom">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="row">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    <!--span class="icon-bar"></span-->
+                    </button>
+                    <div class="col-xs-9 phone-nav">
+                        <a class="navbar-brand" href="index.html" id="logo">Trump Tweets</a>
+                    </div>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right navbar-right-custom">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="bar_chart.html">Tweets by Month</a></li>
+                                <li><a href="pie_chart.html">Tweets by Time</a></li>
+                                <li><a href="any_chart.html">Tweets by Topic</a></li>
+                                <!--li><a href="bar_chart.html">Lies by Month</a></li-->
+                            </ul>
+                        </li>
+                        <li><a href="comparison.html">Comparison</a></li>
+                        <li><a href="data.html">Our Analysis</a></li>
+                        <!--li><a href="data.html">Data</a></li-->
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- End of navbar -->
+    <!-- Start of container -->
+    <div class="container">
+        <section class="row">
+            <article class="description-content">
+                <h1 class="description-header" , center>Us vs. Them: Trump's Language on Twitter</h1>
+                <h3 class="text-center">A comparison of attack and defense language in president Trump's tweets</h3>
+            </article>
+
+            <script>
+                var myData = "Date	Them	Us\n\
+                20170101	49	135\n\
+20170201	31	82\n\
+20170301	29	82\n\
+20170401	32	96\n\
+20170501	26	77\n\
+20170601	59	147\n\
+20170701	40	170\n\
+20170801	26	163\n\
+20170901	27	221\n\
+20171001	41	179\n\
+20171101	50	215\n\
+20171201	41	189\n\
+20180101	94	255\n\
+20180201	67	199\n\
+20180301	43	225\n\
+20180401	84	239\n\
+20180501	117	242\n\
+20180601	175	415\n\
+20180701	149	342\n\
+20180801	113	359\n\
+20180901	108	281\n\
+20181001	84	318\n\
+20181101	118	297\n\
+20181201	134	380\n\
+20190101	153	356\n\
+20190201	84	206\n\
+20190301	127	259\n\
+20190401	176	306\n\
+20190501	243	582\n\
+20190601	233	468\n\
+20190701	315	542\n\
+20190801	191	513\n\
+20190901	245	485\n\
+20191001	381	627\n\
+20191101	262	448\n\
+20191201	464	533\n";
+
+
+                var margin = {
+                        top: 20,
+                        right: 80,
+                        bottom: 30,
+                        left: 50
+                    },
+                    width = 1200 - margin.left - margin.right,
+                    height = 700 - margin.top - margin.bottom;
+
+                var parseDate = d3.time.format("%Y%m%d").parse;
+
+                var x = d3.time.scale()
+                    .range([0, width]);
+
+                var y = d3.scale.linear()
+                    .range([height, 0]);
+
+                var color = d3.scale.category10();
+
+                var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom");
+
+                var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .orient("left");
+
+                var line = d3.svg.line()
+                    .interpolate("basis")
+                    .x(function(d) {
+                        return x(d.Date);
+                    })
+                    .y(function(d) {
+                        return y(d.temperature);
+                    });
+
+                var svg = d3.select("body").append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                var data = d3.tsv.parse(myData)
+
+                color.domain(d3.keys(data[0]).filter(function(key) {
+                    return key !== "Date";
+                }));
+
+                data.forEach(function(d) {
+                    d.Date = parseDate(d.Date);
+                });
+                var cities = color.domain().map(function(name) {
+                    return {
+                        name: name,
+                        values: data.map(function(d) {
+                            return {
+                                Date: d.Date,
+                                temperature: +d[name]
+                            };
+                        })
+                    };
+                });
+
+                x.domain(d3.extent(data, function(d) {
+                    return d.Date;
+                }));
+
+                y.domain([
+                    d3.min(cities, function(c) {
+                        return d3.min(c.values, function(v) {
+                            return v.temperature;
+                        });
+                    }),
+                    d3.max(cities, function(c) {
+                        return d3.max(c.values, function(v) {
+                            return v.temperature;
+                        });
+                    })
+                ]);
+
+                var legend = svg.selectAll('g')
+                    .data(cities)
+                    .enter()
+                    .append('g')
+                    .attr('class', 'legend');
+
+                legend.append('rect')
+                    .attr('x', width - 20)
+                    .attr('y', function(d, i) {
+                        return i * 20;
+                    })
+                    .attr('width', 10)
+                    .attr('height', 10)
+                    .style('fill', function(d) {
+                        return color(d.name);
+                    });
+
+                legend.append('text')
+                    .attr('x', width - 8)
+                    .attr('y', function(d, i) {
+                        return (i * 20) + 9;
+                    })
+                    .text(function(d) {
+                        return d.name;
+                    });
+
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(xAxis);
+
+                svg.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxis)
+                    .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", ".71em")
+                    .style("text-anchor", "end")
+                    .text("Count");
+
+                var city = svg.selectAll(".city")
+                    .data(cities)
+                    .enter().append("g")
+                    .attr("class", "city");
+
+                city.append("path")
+                    .attr("class", "line")
+                    .attr("d", function(d) {
+                        return line(d.values);
+                    })
+                    .style("stroke", function(d) {
+                        return color(d.name);
+                    });
+
+                city.append("text")
+                    .datum(function(d) {
+                        return {
+                            name: d.name,
+                            value: d.values[d.values.length - 1]
+                        };
+                    })
+                    .attr("transform", function(d) {
+                        return "translate(" + x(d.value.Date) + "," + y(d.value.temperature) + ")";
+                    })
+                    .attr("x", 3)
+                    .attr("dy", ".35em")
+                    .text(function(d) {
+                        return d.name;
+                    });
+
+                var mouseG = svg.append("g")
+                    .attr("class", "mouse-over-effects");
+
+                mouseG.append("path") // this is the black vertical line to follow mouse
+                    .attr("class", "mouse-line")
+                    .style("stroke", "black")
+                    .style("stroke-width", "1px")
+                    .style("opacity", "0");
+
+                var lines = document.getElementsByClassName('line');
+
+                var mousePerLine = mouseG.selectAll('.mouse-per-line')
+                    .data(cities)
+                    .enter()
+                    .append("g")
+                    .attr("class", "mouse-per-line");
+
+                mousePerLine.append("circle")
+                    .attr("r", 7)
+                    .style("stroke", function(d) {
+                        return color(d.name);
+                    })
+                    .style("fill", "none")
+                    .style("stroke-width", "1px")
+                    .style("opacity", "0");
+
+                mousePerLine.append("text")
+                    .attr("transform", "translate(10,3)");
+
+                mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
+                    .attr('width', width) // can't catch mouse events on a g element
+                    .attr('height', height)
+                    .attr('fill', 'none')
+                    .attr('pointer-events', 'all')
+                    .on('mouseout', function() { // on mouse out hide line, circles and text
+                        d3.select(".mouse-line")
+                            .style("opacity", "0");
+                        d3.selectAll(".mouse-per-line circle")
+                            .style("opacity", "0");
+                        d3.selectAll(".mouse-per-line text")
+                            .style("opacity", "0");
+                    })
+                    .on('mouseover', function() { // on mouse in show line, circles and text
+                        d3.select(".mouse-line")
+                            .style("opacity", "1");
+                        d3.selectAll(".mouse-per-line circle")
+                            .style("opacity", "1");
+                        d3.selectAll(".mouse-per-line text")
+                            .style("opacity", "1");
+                    })
+                    .on('mousemove', function() { // mouse moving over canvas
+                        var mouse = d3.mouse(this);
+                        d3.select(".mouse-line")
+                            .attr("d", function() {
+                                var d = "M" + mouse[0] + "," + height;
+                                d += " " + mouse[0] + "," + 0;
+                                return d;
+                            });
+
+                        d3.selectAll(".mouse-per-line")
+                            .attr("transform", function(d, i) {
+                                console.log(width / mouse[0])
+                                var xDate = x.invert(mouse[0]),
+                                    bisect = d3.bisector(function(d) {
+                                        return d.Date;
+                                    }).right;
+                                idx = bisect(d.values, xDate);
+
+                                var beginning = 0,
+                                    end = lines[i].getTotalLength(),
+                                    target = null;
+
+                                while (true) {
+                                    target = Math.floor((beginning + end) / 2);
+                                    pos = lines[i].getPointAtLength(target);
+                                    if ((target === end || target === beginning) && pos.x !== mouse[0]) {
+                                        break;
+                                    }
+                                    if (pos.x > mouse[0]) end = target;
+                                    else if (pos.x < mouse[0]) beginning = target;
+                                    else break; //position found
+                                }
+
+                                d3.select(this).select('text')
+                                    .text(y.invert(pos.y).toFixed(2));
+
+                                return "translate(" + mouse[0] + "," + pos.y + ")";
+                            });
+                    });
+            </script>
+        </section>
+    </div>
+    <div class="container">
+        <div class="row">
+            <h1>Breaking down President Trump's Tweet Language</h1>
+            <p>A little description about the graph......</p>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="static/css/d3.v5.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+
+</html>

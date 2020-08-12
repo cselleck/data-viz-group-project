@@ -32,7 +32,7 @@
               <span class="icon-bar"></span>
             </button>
                     <div class="col-xs-9 phone-nav">
-                        <a class="navbar-brand" href="{{ url_for('index') }}" id="logo">Trump Tweets</a>
+                        <a class="navbar-brand" href="index.html" id="logo">Trump Tweets</a>
                     </div>
                 </div>
 
@@ -42,14 +42,13 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url_for('bar_chart') }}">Lies by Month</a></li>
-                                <li><a href="{{ url_for('pie_chart') }}">Lies by Category</a></li>
-                                <li><a href="{{ url_for('any_chart') }}">Lies by Topic</a></li>
-                                <li><a href="{{ url_for('bar_chart') }}">Lies by Month</a></li>
+                                <li><a href="bar_chart.html">Lies by Month</a></li>
+                                <li><a href="pie_chart.html">Lies by Category</a></li>
+                                <li><a href="any_chart.html">Lies by Topic</a></li>
                             </ul>
                         </li>
-                        <li><a href="{{ url_for('comparison') }}">Comparison</a></li>
-                        <li><a href="{{ url_for('data') }}">Data</a></li>
+                        <li><a href="comparison.html">Comparison</a></li>
+                        <li><a href="data.html">Data</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -64,11 +63,15 @@
         <section class="row">
             <div class="col-md-8">
                 <article class="description-content">
-                    <h1 class="description-header">Trump Tweets</h1>
+                    <h1 class="description-header">Some Observations</h1>
                     <hr class="description-hr" />
-                    <img src="static/images/bar_chart.png" alt="" class="img-responsive" />
-                    <p>This chart displays the count of false claims by month.</p>
-                    <p>Click on the dropdown menu to change the category for each false claim.</p>
+                    <p>President Trump is using twitter more as his presidency progresses. There is a steady increase over time in the number of tweets he posts. </p>
+                    <p>Surprisingly, he tweets more about "us" than "them"- although the gap was closing as 2019 came to a close. Our data set was for the years of 2017 through the end of 2019- it would be interesting to see how this trend progressed through
+                        the Covid-19 pandemic. </p>
+                    <p>Not surprisingly, "Fake News" is the number one phrase that he tweeted. Phrases referring to democrats make up the rest of the top tier results, but they are followed closely by tweets referring to himself and his administration. Very
+                        few policy or agenda terms appear in the word cloud.</p>
+                    <p>A note about the word cloud search function- we parsed the phrases, removed all punctuation, and also removed stop words, which can make the twitter search results inaccurate. A future update would be to unparse the phrases before
+                        sending them back through the twitter search function. </p>
                 </article>
             </div>
             <div class="col-md-4">
@@ -79,10 +82,10 @@
                         <h2 class="imageNav-header">Visualizations</h2>
                         <hr />
                         <div id="images">
-                            <a href="{{ url_for('bar_chart') }}"><img src=static/images/bar_chart.png" alt="Lies by Month - Filtered by Topic" class="imageNav-photo"></a>
-                            <a href="{{ url_for('pie_chart') }}"><img src="static/images/pie_chart.png" alt="Lies by Category - Filtered by Month" class="imageNav-photo"></a>
-                            <a href="{{ url_for('any_chart') }}"><img src="static/images/any_chart.png" alt="Lies by Topic - Filtered by Month" class="imageNav-photo"></a>
-                            <a href="{{ url_for('data') }}"><img src="static/mages/bar_chart.png" alt="Lies by Month" class="imageNav-photo"></a>
+                            <a href="bar_chart.html"><img src="static/images/bar_chart.png" alt="Lies by Month - Filtered by Topic" class="imageNav-photo"></a>
+                            <a href="pie_chart.html"><img src="static/images/pie_chart.png" alt="Lies by Category - Filtered by Month" class="imageNav-photo"></a>
+                            <a href="any_chart,html"><img src="static/images/any_chart.png" alt="Lies by Topic - Filtered by Month" class="imageNav-photo"></a>
+
                         </div>
                     </div>
                 </section>

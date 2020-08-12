@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+
     <title>Trump Tweets Dashboard</title>
 
     <!-- Boostrap Stylesheet -->
@@ -14,7 +14,6 @@
 
     <!-- Our own CSS stylesheet -->
     <link rel="stylesheet" href="static/css/styles.css" media="screen">
-
 
 </head>
 
@@ -33,7 +32,7 @@
               <!--span class="icon-bar"></span-->
             </button>
                     <div class="col-xs-9 phone-nav">
-                        <a class="navbar-brand" href="#" id="logo">Trump Tweets</a>
+                        <a class="navbar-brand" href="index.html" id="logo">Trump Tweets</a>
                     </div>
                 </div>
 
@@ -43,14 +42,13 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url_for('bar_chart') }}">Tweets by Month</a></li>
-                                <li><a href="{{ url_for('pie_chart') }}">Tweets by Time</a></li>
-                                <li><a href="{{ url_for('any_chart') }}">Tweets by Topic</a></li>
-                                <!--li><a href="bar_chart.html">Lies by Month</a></li-->
+                                <li><a href="bar_chart.html">Tweets by Month</a></li>
+                                <li><a href="pie_chart.html">Tweets by Time</a></li>
+                                <li><a href="any_chart.html">Twwets by Topic</a></li>
                             </ul>
                         </li>
-                        <li><a href="{{ url_for('comparison') }}">Comparison</a></li>
-                        <!--li><a href="data.html">Data</a></li-->
+                        <li><a href="comparison.html">Comparison</a></li>
+                        <li><a href="data.html">Our Analysis</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -62,37 +60,30 @@
 
     <!-- Start of container -->
     <div class="container">
-        <section class="row">
-            <div class="col-md-8">
-                <article class="description-content">
-                    <h1 class="description-header">Trump's Misstatements</h1>
-                    <hr class="description-hr" />
-                    <img src="static/images/bar_chart.png" alt="" id="description-image" />
-                    <p>This project takes scraped twitter data from Donald Trumps account and breaks the tweets down by month, key word and other stuff in Clay's really cool chart.</p>
-                    <p>Clay created the code to scrape the Washington Post but after spending 4 straight nights up until 3 we scrapped that and went to plan B.</p>
-                </article>
+        <article class="description-content row">
+            <div class="col-xs-12">
+                <h1 class="description-header">Claims by Month, Category & Topic</h1>
+                <hr class="description-hr" />
+                <p class="description-text">Click any plot to get an in-depth analysis.</p>
             </div>
-
-            <div class="col-md-4">
-
-                <!-- Start of Visualizations imageNav Area -->
-                <section id="imageNav-area">
-                    <div class="imageNav-content">
-                        <h2 class="imageNav-header">Visualizations</h2>
-                        <hr />
-                        <div id="images">
-                            <a href="{{ url_for('bar_chart') }}"><img src="static/images/bar_chart.png" alt="Tweets by Month" class="imageNav-photo"></a>
-                            <a href="{{ url_for('pie_chart') }}"><img src="static/images/pie_chart.png" alt="Tweets by Time" class="imageNav-photo"></a>
-                            <a href="{{ url_for('any_chart') }}"><img src="static/images/any_chart.png" alt="Tweets by Topic" class="imageNav-photo"></a>
-                        </div>
-                    </div>
-                </section>
-                <!-- End of the Visualizations imageNav Area -->
-
+            <div class="col-md-6">
+                <h2 class="comparison-header">Claims by Month</h2>
+                <a href="bar_chart.html"><img src="static/images/bar_chart.png" alt="Tweets by Month" class="comparison-image img-responsive"></a>
+                <hr class="visible-xs visible-sm">
             </div>
-        </section>
+            <div class="col-md-6">
+                <h2 class="comparison-header">Claims by Category</h2>
+                <a href="pie_chart.html"><img src="static/images/pie_chart.png" alt="Tweets by Category" class="comparison-image img-responsive"></a>
+                <hr class="visible-xs visible-sm">
+            </div>
+            <div class="col-md-6">
+                <h2 class="comparison-header">Claims by Topic</h2>
+                <a href="any_chart.html"><img src="static/images/any_chart.png" alt="Tweets by Topic" class="comparison-image img-responsive"></a>
+                <hr class="visible-xs visible-sm">
+            </div>
+        </article>
     </div>
-    <!-- End of container -->
+    <!-- End of container  -->
 
     <!-- Start of footer -->
     <footer class="footer navbar-fixed-bottom">
